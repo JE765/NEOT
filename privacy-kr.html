@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>개인정보 처리방침 · NEOT</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+      background: #0a0a0a;
+      color: #e8e8e8;
+    }
+    a { color: #c9a090; }
+    #err { color: #f66; }
+    #out :is(h1, h2, h3) { margin-top: 1.5em; }
+    #out hr { border: none; border-top: 1px solid #333; margin: 2rem 0; }
+  </style>
+</head>
+<body>
+  <p><a href="./terms-kr.html">이용약관</a></p>
+  <div id="out"></div>
+  <p id="err" hidden>문서를 불러올 수 없습니다.</p>
+  <script>
+    const SRC = './privacy-kr.md';
+    fetch(SRC)
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        return r.text();
+      })
+      .then((t) => {
+        document.getElementById('out').innerHTML = marked.parse(t);
+      })
+      .catch(() => {
+        document.getElementById('err').hidden = false;
+      });
+  </script>
+</body>
+</html>
